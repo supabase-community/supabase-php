@@ -1,0 +1,32 @@
+{
+    "name": "supabase/supabase-php",
+    "type": "library",
+    "description": "Supabase client for PHP",
+    "keywords": ["supabase","supabasephp"],
+    "homepage": "https://github.com/supabase-community/storage-php",
+    "autoload": {
+        "psr-0": { "": "src/" },
+        "psr-4": {
+            "Supabase\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Supabase\\Test\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "norm",
+            "email": "norm@zerocopylabs.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "9.6"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "7.5",
+        "supabase/functions-php": "0.0.3",
+        "supabase/storage-php": "0.0.1"
+    }
+}
