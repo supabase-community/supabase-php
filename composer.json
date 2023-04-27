@@ -27,6 +27,6 @@
     "require": {
         "guzzlehttp/guzzle": "7.5",
         "supabase/functions-php": "0.0.3",
-        "supabase/storage-php": "0.0.3"
+        "supabase/storage-php": "0.0.1"
     }
 }
