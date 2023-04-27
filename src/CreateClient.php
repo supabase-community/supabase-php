@@ -76,7 +76,7 @@ class CreateClient
 
 	public function __getFunctions()
 	{
-		if(isset($this->functions)){
+		if(empty($this->functions)){
 			$this->functions = new FunctionsClient(
 				$this->reference_id,
 				$this->api_key,
