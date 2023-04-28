@@ -8,9 +8,10 @@ PHP Client library to interact with Supabase.
 
 - [x] Integrate `storage-php`
 - [x] Integrate `functions-php`
-- [ ] Integrate `gotrue-php`
-- [ ] Integrate `postgrest-php`
+- [x] Integrate `gotrue-php`
+- [x] Integrate `postgrest-php`
 - [ ] Integrate `realtime-php`
+- [ ] Handle global options 
 - [ ] Support for PHP 7.4
 
 

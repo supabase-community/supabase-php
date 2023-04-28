@@ -5,6 +5,7 @@ namespace Supabase;
 use Supabase\Functions\FunctionsClient;
 use Supabase\Storage\StorageClient;
 use Supabase\Postgrest\PostgrestClient;
+use Supabase\GoTrue\GoTrueClient;
 
 class CreateClient 
 {
@@ -51,6 +52,8 @@ class CreateClient
 	 */
 	public function __call($method, $args) : mixed
 	{
+var_dump($method);
+exit();
 		switch ($method) {
 			case 'rpc':
 				$this->__getQuery();
@@ -136,5 +139,20 @@ class CreateClient
 			);
 		}
 		return $this->query;
+	}
+
+	public function __getAuth()
+	{
+		if(empty($this->auth)){
+			$this->auth = new GoTrueClient(
+				$this->reference_id,
+				$this->api_key,
+				[], // @TODO pass in opts
+				$this->domain,
+				$this->scheme,
+// @TODO $path?? $global_opts
+			);
+		}
+		return $this->auth;
 	}
 }

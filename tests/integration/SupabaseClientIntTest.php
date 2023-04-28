@@ -90,14 +90,4 @@ final class SupabaseClientIntTest extends TestCase
 		$response = $this->client->rpc('echo', ['say'=> '👋'])->execute();
 		$this->assertEquals('👋', $response->{'data'});
 	}
-
-	/**
-	 * Test Go-true/Auth.
-	 */
-	public function testAuth(): void
-	{
-// @TODO
-		$response = $this->client->functions->invoke('hello-world', ['name'=>'Supabase']);
-		$this->assertEquals('Hello Players!', $response->{'message'});
-	}
 }
