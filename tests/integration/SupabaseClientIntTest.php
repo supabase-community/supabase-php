@@ -62,11 +62,41 @@ final class SupabaseClientIntTest extends TestCase
 	}
 
 	/**
-	 * Test edge functions.
+	 * Test Edge Functions.
 	 */
 	public function testEdgeFunctions(): void
 	{
 
+		$response = $this->client->functions->invoke('hello-world', ['name'=>'Supabase']);
+		$this->assertEquals('Hello Players!', $response->{'message'});
+	}
+
+	/**
+	 * Test Postgrest.
+	 */
+	public function testPostgrest(): void
+	{
+
+		$response = $this->client->from('countries')->select('*')->execute();
+		$this->assertEquals('Germany', $response->{'data'}[0]["name"]);
+	}
+
+	/**
+	 * Test Postgrest RPC.
+	 */
+	public function testRPC(): void
+	{
+
+		$response = $this->client->rpc('echo', ['say'=> '👋'])->execute();
+		$this->assertEquals('👋', $response->{'data'});
+	}
+
+	/**
+	 * Test Go-true/Auth.
+	 */
+	public function testAuth(): void
+	{
+// @TODO
 		$response = $this->client->functions->invoke('hello-world', ['name'=>'Supabase']);
 		$this->assertEquals('Hello Players!', $response->{'message'});
 	}
