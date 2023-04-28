@@ -52,8 +52,6 @@ class CreateClient
 	 */
 	public function __call($method, $args) : mixed
 	{
-var_dump($method);
-exit();
 		switch ($method) {
 			case 'rpc':
 				$this->__getQuery();
