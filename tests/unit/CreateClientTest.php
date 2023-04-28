@@ -40,4 +40,26 @@ class CreateClientTest extends TestCase
 		$client = new  CreateClient('somekey', 'some_ref_id');
 		$this->assertEquals(get_class($client->storage), 'Supabase\Storage\StorageClient');
 	}
+
+	/**
+	 * Test postgrest exists.
+	 *
+	 * @return void
+	 */
+	public function testPostgrestExists()
+	{
+		$client = new  CreateClient('somekey', 'some_ref_id');
+		$this->assertEquals(get_class($client->query), 'Supabase\Postgrest\PostgrestClient');
+	}
+
+	/**
+	 * Test go-true/auth exists.
+	 *
+	 * @return void
+	 */
+	public function testGoTrueExists()
+	{
+		$client = new  CreateClient('somekey', 'some_ref_id');
+		$this->assertEquals(get_class($client->auth), 'Supabase\GoTrue\GoTrueClient');
+	}
 }

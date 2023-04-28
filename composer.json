@@ -25,8 +25,9 @@
         "phpunit/phpunit": "9.6"
     },
     "require": {
-        "guzzlehttp/guzzle": "7.5",
         "supabase/functions-php": "0.0.3",
-        "supabase/storage-php": "0.0.1"
+        "supabase/storage-php": "0.0.2",
+        "supabase/gotrue-php": "0.0.2",
+        "supabase/postgrest-php": "0.0.3"
     }
 }

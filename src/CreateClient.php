@@ -4,6 +4,8 @@ namespace Supabase;
 
 use Supabase\Functions\FunctionsClient;
 use Supabase\Storage\StorageClient;
+use Supabase\Postgrest\PostgrestClient;
+use Supabase\GoTrue\GoTrueClient;
 
 class CreateClient 
 {
@@ -15,8 +17,7 @@ class CreateClient
 
 	private mixed $functions = null;
 	private mixed $auth = null;
-	private mixed $from = null;
-	private mixed $rpc = null;
+	private mixed $query = null;
 	private mixed $realtime = null;
 	private mixed $storage = null;
 
@@ -41,6 +42,33 @@ class CreateClient
 	}
 
 	/**
+	 * Caller to present a user-friendly interface for the libraries.
+	 *
+	 *
+	 * @param  string  $prop Name of the property requested 
+	 * @param  array $args Arguments passed to the method call 
+	 *
+	 * @throws Exception
+	 */
+	public function __call($method, $args) : mixed
+	{
+var_dump($method);
+exit();
+		switch ($method) {
+			case 'rpc':
+				$this->__getQuery();
+				return $this->query->rpc(...$args);
+				break;	
+			case 'from':
+				$this->__getQuery();
+				return $this->query->from(...$args);
+				break;	
+			default:	
+				return $this->{$method}(...$args);
+		}
+	}
+
+	/**
 	 * Getter to present a user-friendly interface for the libraries.
 	 *
 	 *
@@ -57,11 +85,8 @@ class CreateClient
 			case 'auth':
 				return $this->__getAuth();
 				break;	
-			case 'from':
-				return $this->__getFrom();
-				break;	
-			case 'rpc':
-				return $this->__getRpc();
+			case 'query':
+				return $this->__getQuery();
 				break;	
 			case 'realtime':
 				return $this->__getRealtime();
@@ -99,5 +124,35 @@ class CreateClient
 			);
 		}
 		return $this->storage;
+	}
+
+	public function __getQuery()
+	{
+		if(empty($this->query)){
+			$this->query = new PostgrestClient(
+				$this->reference_id,
+				$this->api_key,
+				[], // @TODO pass in opts
+				$this->domain,
+				$this->scheme,
+// @TODO $path?? $global_opts
+			);
+		}
+		return $this->query;
+	}
+
+	public function __getAuth()
+	{
+		if(empty($this->auth)){
+			$this->auth = new GoTrueClient(
+				$this->reference_id,
+				$this->api_key,
+				[], // @TODO pass in opts
+				$this->domain,
+				$this->scheme,
+// @TODO $path?? $global_opts
+			);
+		}
+		return $this->auth;
 	}
 }
