@@ -20,6 +20,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
+          extensions: mbstring, intl, sodium, soda, mbstring, curl
+          ini-values: post_max_size=256M, max_execution_time=180
           coverage: none
 
       - name: Install dependencies
