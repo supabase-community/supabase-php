@@ -5,7 +5,6 @@
     "keywords": ["supabase","supabasephp"],
     "homepage": "https://github.com/supabase-community/storage-php",
     "autoload": {
-        "psr-0": { "": "src/" },
         "psr-4": {
             "Supabase\\": "src/"
         }
