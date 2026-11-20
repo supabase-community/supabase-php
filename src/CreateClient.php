@@ -45,10 +45,10 @@ class CreateClient
 	 * Caller to present a user-friendly interface for the libraries.
 	 *
 	 *
-	 * @param  string  $prop Name of the property requested 
+	 * @param  string  $method Name of the method requested
 	 * @param  array $args Arguments passed to the method call 
 	 *
-	 * @throws Exception
+	 * @throws \BadMethodCallException If the method does not exist
 	 */
 	public function __call($method, $args) : mixed
 	{
@@ -61,8 +61,10 @@ class CreateClient
 				$this->__getQuery();
 				return $this->query->from(...$args);
 				break;	
-			default:	
-				return $this->{$method}(...$args);
+			default:
+				throw new \BadMethodCallException(
+					sprintf('Call to undefined method %s::%s()', static::class, $method)
+				);
 		}
 	}
 
@@ -72,7 +74,7 @@ class CreateClient
 	 *
 	 * @param  string  $prop Name of the property requested 
 	 *
-	 * @throws Exception
+	 * @throws \LogicException If the requested library is not supported yet
 	 */
 	public function __get($prop) : mixed
 	{
@@ -87,13 +89,17 @@ class CreateClient
 				return $this->__getQuery();
 				break;	
 			case 'realtime':
-				return $this->__getRealtime();
-				break;	
+				throw new \LogicException('Realtime is not supported yet.');
 			case 'storage':
 				return $this->__getStorage();
 				break;	
-			default:	
-				return $this->{$name};
+			default:
+				trigger_error(
+					sprintf('Undefined property: %s::$%s', static::class, $prop),
+					E_USER_WARNING
+				);
+
+				return null;
 		}
 	}
 
